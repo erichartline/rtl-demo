@@ -23,7 +23,9 @@ const TodoList = () => {
           onChange={(event) => setTodo(event.target.value)}
           required
         />
-        <button type="submit">Add</button>
+        <button type="submit" disabled={todo.length === 0}>
+          Add
+        </button>
       </form>
       <div>
         <ul>

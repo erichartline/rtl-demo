@@ -32,6 +32,15 @@ describe("TodoList RTL", () => {
     // verify text content
     expect(listItems[0]).toHaveTextContent(todos[0]);
     expect(listItems[1]).toHaveTextContent(todos[1]);
+
+    // alternatively, we could loop over the listitems and use the 'within'
+    // helper method to verify text content
+    // https://stackoverflow.com/questions/57435680/whats-the-idiomatic-way-of-testing-a-list-with-dynamic-content-using-react-test
+  });
+
+  it("renders disabled button when todo value is empty", () => {
+    render(<TodoList />);
+    expect(screen.getByRole("button", { name: /Add/ })).toBeDisabled();
   });
 });
 
@@ -40,6 +49,11 @@ describe("TodoList Enzyme", () => {
     const wrapper = shallow(<TodoList />);
     expect(wrapper.find("input[name='todo']").exists()).toBeTruthy();
     expect(wrapper.find("button[type='submit']").exists()).toBeTruthy();
+  });
+
+  it("renders disabled button when todo value is empty", () => {
+    const wrapper = shallow(<TodoList />);
+    expect(wrapper.find("button[type='submit']").props().disabled).toBeTruthy();
   });
 });
 
