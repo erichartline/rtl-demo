@@ -1,5 +1,4 @@
 import React from "react";
-import { v4 as uuid } from "uuid";
 
 const TodoList = () => {
   const [todo, setTodo] = React.useState("");
@@ -8,13 +7,7 @@ const TodoList = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     setTodo("");
-    setTodosList([
-      ...todosList,
-      {
-        id: uuid(),
-        todo: todo,
-      },
-    ]);
+    setTodosList([...todosList, todo]);
   };
 
   return (
@@ -24,19 +17,18 @@ const TodoList = () => {
         <input
           type="text"
           name="todo"
-          id="todo"
+          aria-label="Your todo"
+          placeholder="Add todo..."
           value={todo}
           onChange={(event) => setTodo(event.target.value)}
           required
         />
-        <button type="submit" name="add">
-          Add
-        </button>
+        <button type="submit">Add</button>
       </form>
       <div>
         <ul>
-          {todosList.map((todo) => (
-            <li key={todo.id}>{todo.todo}</li>
+          {todosList.map((todo, index) => (
+            <li key={index}>{todo}</li>
           ))}
         </ul>
       </div>
