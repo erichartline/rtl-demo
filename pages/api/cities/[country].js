@@ -6,7 +6,7 @@ const handler = async (req, res) => {
   await waitOneSecond();
 
   switch (req.query.country) {
-    case "USA":
+    case "usa":
       return res
         .status(200)
         .json([
@@ -21,7 +21,7 @@ const handler = async (req, res) => {
           "Dallas",
           "San Jose",
         ]);
-    case "Canada":
+    case "canada":
       return res
         .status(200)
         .json([
@@ -36,7 +36,7 @@ const handler = async (req, res) => {
           "Brampton",
           "Hamilton",
         ]);
-    case "Mexico":
+    case "mexico":
       return res
         .status(200)
         .json([

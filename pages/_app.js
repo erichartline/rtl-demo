@@ -1,22 +1,11 @@
-import { SWRConfig } from "swr";
+import CustomSWRConfig from "../providers/SWRConfig";
 import "../styles/globals.css";
-
-const fetcher = async (url) => {
-  const res = await fetch(url);
-
-  if (!res.ok) {
-    const json = await res.json();
-    throw new Error(json.message);
-  }
-
-  return res.json();
-};
 
 function MyApp({ Component, pageProps }) {
   return (
-    <SWRConfig value={{ fetcher }}>
+    <CustomSWRConfig>
       <Component {...pageProps} />
-    </SWRConfig>
+    </CustomSWRConfig>
   );
 }
 

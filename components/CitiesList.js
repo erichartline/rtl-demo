@@ -5,7 +5,7 @@ const CitiesList = ({ country }) => {
   const { data, error } = useSWR(`/api/cities/${country}`);
 
   if (error) {
-    return <div>got an error :(</div>;
+    return <div>got an error</div>;
   }
 
   if (!data) {
