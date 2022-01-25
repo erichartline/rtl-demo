@@ -32,24 +32,18 @@ describe("CitiesList", () => {
 
   it("shows Canada cities when country is Canada", async () => {
     render(<CitiesListWrapper country="canada" />);
-    // first check loading state
     expect(screen.getByText(/loading.../)).toBeInTheDocument();
-    // wait for data to appear
     const listItems = await screen.findAllByRole("listitem");
     expect(listItems).toHaveLength(10);
-    // get the text content of each list item and compare to mock data
     const cities = listItems.map((li) => li.textContent);
     expect(cities).toEqual(mockCanadaCities);
   });
 
   it("shows Mexico cities when country is Mexico", async () => {
     render(<CitiesListWrapper country="mexico" />);
-    // first check loading state
     expect(screen.getByText(/loading.../)).toBeInTheDocument();
-    // wait for data to appear
     const listItems = await screen.findAllByRole("listitem");
     expect(listItems).toHaveLength(10);
-    // get the text content of each list item and compare to mock data
     const cities = listItems.map((li) => li.textContent);
     expect(cities).toEqual(mockMexicoCities);
   });

@@ -1,13 +1,13 @@
 import React from "react";
 
 const TodoList = () => {
-  const [todo, setTodo] = React.useState("");
+  const [currentTodo, setCurrentTodo] = React.useState("");
   const [todosList, setTodosList] = React.useState([]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setTodo("");
-    setTodosList([...todosList, todo]);
+    setCurrentTodo("");
+    setTodosList([...todosList, currentTodo]);
   };
 
   return (
@@ -19,11 +19,11 @@ const TodoList = () => {
           name="todo"
           aria-label="Your todo"
           placeholder="Add todo..."
-          value={todo}
-          onChange={(event) => setTodo(event.target.value)}
+          value={currentTodo}
+          onChange={(event) => setCurrentTodo(event.target.value)}
           required
         />
-        <button type="submit" disabled={todo.length === 0}>
+        <button type="submit" disabled={currentTodo.length === 0}>
           Add
         </button>
       </form>

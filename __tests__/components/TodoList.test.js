@@ -1,9 +1,8 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { shallow } from "enzyme";
 import TodoList from "../../components/TodoList";
 
-describe("TodoList RTL", () => {
+describe("TodoList", () => {
   it("should render expected components", () => {
     render(<TodoList />);
     expect(
@@ -15,12 +14,18 @@ describe("TodoList RTL", () => {
     expect(screen.getByRole("button", { name: /Add/ })).toBeInTheDocument();
   });
 
-  it("displays todos upon submit", () => {
-    const todos = ["Learn react-testing-library", "Do a presentation about it"];
+  it("renders disabled button when todo value is empty", () => {
+    render(<TodoList />);
+    expect(screen.getByRole("button", { name: /Add/ })).toBeDisabled();
+  });
 
+  it("displays todos upon submit", () => {
+    // ARRANGE
+    const todos = ["Learn react-testing-library", "Do a presentation about it"];
     render(<TodoList />);
     const input = screen.getByRole("textbox", { name: /Your todo/ });
     const addButton = screen.getByRole("button", { name: /Add/ });
+    // ACT
     // add two todos
     userEvent.type(input, todos[0]);
     userEvent.click(addButton);
@@ -28,32 +33,10 @@ describe("TodoList RTL", () => {
     userEvent.click(addButton);
     // now find all list items
     const listItems = screen.getAllByRole("listitem");
+    // ASSERT
     expect(listItems).toHaveLength(2);
-    // verify text content
     expect(listItems[0]).toHaveTextContent(todos[0]);
     expect(listItems[1]).toHaveTextContent(todos[1]);
-
-    // alternatively, we could loop over the listitems and use the 'within'
-    // helper method to verify text content
-    // https://stackoverflow.com/questions/57435680/whats-the-idiomatic-way-of-testing-a-list-with-dynamic-content-using-react-test
-  });
-
-  it("renders disabled button when todo value is empty", () => {
-    render(<TodoList />);
-    expect(screen.getByRole("button", { name: /Add/ })).toBeDisabled();
-  });
-});
-
-describe("TodoList Enzyme", () => {
-  it("should render expected components", () => {
-    const wrapper = shallow(<TodoList />);
-    expect(wrapper.find("input[name='todo']").exists()).toBeTruthy();
-    expect(wrapper.find("button[type='submit']").exists()).toBeTruthy();
-  });
-
-  it("renders disabled button when todo value is empty", () => {
-    const wrapper = shallow(<TodoList />);
-    expect(wrapper.find("button[type='submit']").props().disabled).toBeTruthy();
   });
 });
 
